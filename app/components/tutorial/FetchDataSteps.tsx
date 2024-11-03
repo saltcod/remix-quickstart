@@ -1,9 +1,10 @@
-import { Link, useLoaderData } from '@remix-run/react'
+import { Link, useLoaderData, useFetcher } from '@remix-run/react'
 import { TutorialStep } from './TutorialStep'
 import { CodeBlock } from './code-block'
-import { json, LoaderFunctionArgs, redirect } from '@remix-run/node'
+import { json, LoaderFunctionArgs, redirect, ActionFunctionArgs } from '@remix-run/node'
 import { createClient } from '~/utils/supabase/.server/server'
-import { loader, Page } from '~/routes/notes'
+import { loader, Page, action } from '~/routes/notes'
+import { useRef, useEffect } from 'react'
 
 const create = `create table notes (
   id bigserial primary key,
@@ -18,9 +19,10 @@ values
 `.trim()
 
 const server = `
-import { json, LoaderFunctionArgs, redirect } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { json, LoaderFunctionArgs, ActionFunctionArgs } from '@remix-run/node'
+import { useLoaderData, useFetcher } from '@remix-run/react'
 import { createClient } from '~/utils/supabase/.server/server'
+import { useRef, useEffect } from 'react'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { supabase } = createClient(request)
@@ -32,11 +34,50 @@ export async function loader({ request }: LoaderFunctionArgs) {
   })
 }
 
+export async function action({ request }: ActionFunctionArgs) {
+  const { supabase } = createClient(request)
+  const formData = await request.formData()
+  const title = formData.get('title')
+
+  if (typeof title !== 'string' || !title) {
+    return json({ error: 'Title is required' }, { status: 400 })
+  }
+
+  await supabase.from('notes').insert({ title })
+  return json({ success: true })
+}
+
+type ActionResponse = { success: boolean } | { error: string }
+
 export default function Page() {
   const { notes } = useLoaderData<typeof loader>()
+  const fetcher = useFetcher<ActionResponse>()
+  const formRef = useRef<HTMLFormElement>(null)
 
-  return <pre>{JSON.stringify(notes, null, 2)}</pre>
+  // Reset form when submission is successful
+  useEffect(() => {
+    if (fetcher.state === 'idle' && !('error' in (fetcher.data || {}))) {
+      formRef.current?.reset()
+    }
+  }, [fetcher])
+
+  return (
+    <div>
+      <h1>Notes</h1>
+
+      <fetcher.Form ref={formRef} method="post" className="mb-6">
+        <div className="grid gap-4">
+          <textarea name="title" className="border rounded p-2" placeholder="Write your note..." />
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            {fetcher.state === 'submitting' ? 'Adding note...' : 'Add Note'}
+          </button>
+        </div>
+      </fetcher.Form>
+      <pre>{JSON.stringify(notes, null, 2)}</pre>
+    </div>
+  )
 }
+
 `.trim()
 
 export default function FetchDataSteps() {
@@ -68,7 +109,7 @@ export default function FetchDataSteps() {
         <CodeBlock code={create} />
       </TutorialStep>
 
-      <TutorialStep title="Query Supabase data from Remix">
+      <TutorialStep title="Fetch and update Supabase data from Remix">
         <p>
           To create a Supabase client and query data, create a new route file at
           <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">

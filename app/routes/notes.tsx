@@ -22,7 +22,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json({ error: 'Title is required' }, { status: 400 })
   }
 
-  await supabase.from('notes').insert([{ title }])
+  await supabase.from('notes').insert({ title })
   return json({ success: true })
 }
 
