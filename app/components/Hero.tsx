@@ -1,41 +1,36 @@
-import { ArrowRightIcon } from 'lucide-react'
-import { Button } from './ui/button'
-import { Link, useLocation } from '@remix-run/react'
-import Header from './Header'
-import { User } from '@supabase/supabase-js'
+import NextLogo from './next-logo'
+import SupabaseLogo from './supabase-logo'
 
-interface HeroProps {
-  user: User | null
-}
-export default function Hero({ user }: HeroProps) {
-  const location = useLocation()
+export default function Hero() {
   return (
-    <>
-      <Header user={user} />
-      {location.pathname === '/' && (
-        <div className="relative grid h-[680px] overflow-hidden justify-items-start align-top ">
-          <img
-            src="/images/hero-friends.jpg"
-            alt="hero"
-            className="absolute top-0 left-0 object-cover object-left-top	2xl:object-center -mt-16 z-0"
-          />
-
-          <div className="container  z-50 mx-auto mb-24 mt-40 grid  gap-4 self-end ">
-            <div className="grid gap-2.5">
-              {/* <p className="text-5xl font-bold text-white">The world can be a lonely place.</p>
-          <p className="text-5xl font-bold text-white">Find people who are just like you.</p> */}
-              <p className="text-6xl font-bold text-white">Life can be lonely.</p>
-              <p className="text-6xl font-bold text-white">Find people just like you.</p>
-            </div>
-            <Button asChild variant="outline">
-              <Link to="" className="flex items-center gap-2 place-self-start">
-                Let's make some friends
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      )}
-    </>
+    <div className="flex flex-col gap-16 items-center">
+      <div className="flex gap-8 justify-center items-center">
+        <a href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs" target="_blank" rel="noreferrer">
+          <SupabaseLogo />
+        </a>
+        <span className="border-l rotate-45 h-6" />
+        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
+          <img src="/logo-light.png" alt="Remix" className="block dark:hidden w-28" />
+          <img src="/logo-dark.png" alt="Remix" className="hidden dark:block w-28" />
+        </a>
+      </div>
+      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
+      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
+        The fastest way to build apps with{' '}
+        <a
+          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
+          target="_blank"
+          className="font-bold hover:underline"
+          rel="noreferrer"
+        >
+          Supabase
+        </a>{' '}
+        and{' '}
+        <a href="https://remix.run" target="_blank" className="font-bold hover:underline" rel="noreferrer">
+          Remix
+        </a>
+      </p>
+      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
+    </div>
   )
 }

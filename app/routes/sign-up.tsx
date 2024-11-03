@@ -1,9 +1,11 @@
 import { json, redirect } from '@remix-run/node'
-import { Form, useActionData, Link } from '@remix-run/react'
+import { Form, Link, useActionData, useNavigation } from '@remix-run/react'
 import type { ActionFunctionArgs } from '@remix-run/node'
 import { createClient } from '~/utils/supabase/.server/server'
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
+import { Label } from '~/components/ui/label'
+import { FormMessage } from '~/components/FormMessage'
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { supabase, headers } = createClient(request)
@@ -18,30 +20,46 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ success: false, error: error.message }, { headers })
   }
 
-  // Redirect to dashboard or home page after successful sign-in
-  return redirect('/profile/matches', { headers })
+  return json(
+    {
+      success: true,
+      error: null,
+      message: 'Success! Please check your email for further instructions.',
+    },
+    { headers }
+  )
 }
 
-const SignIn = () => {
+export const SignUp = () => {
   const actionData = useActionData<typeof action>()
+  const navigation = useNavigation()
+  const isSubmitting = navigation.state === 'submitting'
 
   return (
     <div className="max-w-md mx-auto mt-24">
-      <p>
-        Already have an account?{' '}
-        <Link to="/sign-in" className="underline">
-          Sign in
-        </Link>
-      </p>
-      <Form method="post" className="grid gap-4 mt-4">
-        <Input type="email" name="email" placeholder="Email" required />
-        <Input type="password" name="password" placeholder="Password" required />
-        <br />
-        <Button type="submit">Sign up</Button>
+      <Form method="post" className="flex-1 flex flex-col min-w-64">
+        <h1 className="text-2xl font-medium">Sign up</h1>
+        <p className="text-sm text-foreground">
+          Already have an account?{' '}
+          <Link className="text-foreground font-medium underline" to="/sign-in">
+            Sign in
+          </Link>
+        </p>
+        <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+          <Label htmlFor="email">Email</Label>
+          <Input name="email" placeholder="you@example.com" required />
+          <div className="flex justify-between items-center">
+            <Label htmlFor="password">Password</Label>
+          </div>
+          <Input type="password" name="password" placeholder="Your password" required />
+          <Button disabled={isSubmitting}>{isSubmitting ? 'Signing up...' : 'Sign up'}</Button>
+
+          {!actionData?.success && actionData?.error && <FormMessage message={actionData.error} />}
+          {actionData?.success && <FormMessage message={'Success! check your email for further instructions.'} />}
+        </div>
       </Form>
-      {actionData?.error && <p style={{ color: 'red' }}>{actionData.error}</p>}
     </div>
   )
 }
 
-export default SignIn
+export default SignUp

@@ -1,13 +1,12 @@
-//import { signOutAction } from '@/app/actions'
-
-import { Form, Link, useLoaderData } from '@remix-run/react'
+import { Form, Link, NavLink, useLoaderData } from '@remix-run/react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
-import { hasEnvVars } from '~/utils/check-env-vars'
 import { loader } from '~/root'
+import { cn } from '~/lib/utils'
 
-export default function AuthButton() {
+export default function HeaderNav() {
   const data = useLoaderData<typeof loader>()
+  const { hasEnvVars } = useLoaderData<typeof loader>()
   const user = data ? data.user : null
 
   if (!hasEnvVars) {
@@ -25,7 +24,7 @@ export default function AuthButton() {
             </Button>
             <Form action="/sign-out" method="post" className="flex items-center">
               <Button asChild size="sm" variant={'outline'} disabled className="opacity-75 cursor-none pointer-events-none">
-                <Link to="/sign-in">Sign ouet</Link>
+                <Link to="/sign-in">Sign out</Link>
               </Button>
             </Form>
           </div>
@@ -44,12 +43,23 @@ export default function AuthButton() {
     </div>
   ) : (
     <div className="flex gap-2">
-      <Button asChild size="sm" variant={'outline'}>
-        <Link to="/sign-in">Sign in</Link>
-      </Button>
-      <Button asChild size="sm" variant={'default'}>
-        <Link to="/sign-up">Sign up</Link>
-      </Button>
+      <NavLink
+        to="/sign-in"
+        className={({ isActive, isPending }) =>
+          cn('transition-colors hover:underline', isPending ? 'pending' : isActive ? 'underline' : '')
+        }
+      >
+        Sign in
+      </NavLink>
+
+      <NavLink
+        to="/sign-up"
+        className={({ isActive, isPending }) =>
+          cn('transition-colors hover:underline', isPending ? 'pending' : isActive ? 'underline' : '')
+        }
+      >
+        Sign up
+      </NavLink>
     </div>
   )
 }
