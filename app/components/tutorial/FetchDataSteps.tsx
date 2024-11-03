@@ -1,10 +1,6 @@
-import { Link, useLoaderData, useFetcher } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { TutorialStep } from './TutorialStep'
 import { CodeBlock } from './code-block'
-import { json, LoaderFunctionArgs, redirect, ActionFunctionArgs } from '@remix-run/node'
-import { createClient } from '~/utils/supabase/.server/server'
-import { loader, Page, action } from '~/routes/notes'
-import { useRef, useEffect } from 'react'
 
 const create = `create table notes (
   id bigserial primary key,
