@@ -1,11 +1,24 @@
-import { Moon, Sun } from 'lucide-react'
+import { Check, Moon, Sun } from 'lucide-react'
 import { Theme, useTheme } from 'remix-themes'
 
 import { Button } from './ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
 
 export function ThemeToggle() {
-  const [, setTheme] = useTheme()
+  const [theme, setTheme, metadata] = useTheme()
+
+  const THEME_OPTIONS = [
+    { label: 'Light', value: Theme.LIGHT },
+    { label: 'Dark', value: Theme.DARK },
+    { label: 'System', value: null },
+  ]
+
+  const isSelected = (value: Theme | null) => {
+    if (value === null) {
+      return metadata.definedBy === 'SYSTEM'
+    }
+    return theme === value && metadata.definedBy === 'USER'
+  }
 
   return (
     <DropdownMenu>
@@ -17,9 +30,14 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme(Theme.LIGHT)}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme(Theme.DARK)}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme(null)}>System</DropdownMenuItem>
+        {THEME_OPTIONS.map(({ label, value }) => (
+          <DropdownMenuItem key={label} onClick={() => setTheme(value)}>
+            <span className="flex items-center gap-2">
+              {label}
+              {isSelected(value) && <Check className="h-4 w-4" />}
+            </span>
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )
