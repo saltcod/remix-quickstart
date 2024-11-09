@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node'
-import { Form, useActionData, Link } from '@remix-run/react'
+import { Form, useActionData } from '@remix-run/react'
 import type { ActionFunctionArgs } from '@remix-run/node'
 import { createClient } from '~/utils/supabase/.server/server'
 import { Input } from '~/components/ui/input'
@@ -9,7 +9,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const { supabase, headers } = createClient(request)
   const formData = await request.formData()
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(formData.get('email') as string, {
+  const { error } = await supabase.auth.resetPasswordForEmail(formData.get('email') as string, {
     redirectTo: 'https://example.com/update-password',
   })
 
