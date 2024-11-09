@@ -10,10 +10,9 @@ import { themeSessionResolver } from './utils/session.server'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
-import clsx from 'clsx'
 import Header from '~/components/Header'
+import { cn } from './lib/utils'
 
-// Return the theme from the session storage using the loader
 export async function loader({ request }: LoaderFunctionArgs) {
   const { supabase } = createClient(request)
 
@@ -49,7 +48,7 @@ export function App() {
   const [theme] = useTheme()
 
   return (
-    <html lang="en" className={clsx(theme)}>
+    <html lang="en" className={cn(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
