@@ -14,7 +14,7 @@ export default function Hero() {
           <img src="/logo-dark.png" alt="Remix" className="hidden dark:block w-28" />
         </a>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
+      <h1 className="sr-only">Supabase and Remix Starter Template</h1>
       <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
         The fastest way to build apps with{' '}
         <a

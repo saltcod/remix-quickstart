@@ -10,7 +10,7 @@ const create = `create table notes (
 insert into notes(title)
 values
   ('Today I created a Supabase project.'),
-  ('I added some data and queried it from Next.js.'),
+  ('I added some data and queried it from Remix.'),
   ('It was awesome!');
 `.trim()
 

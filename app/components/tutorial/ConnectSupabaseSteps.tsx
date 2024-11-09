@@ -24,7 +24,7 @@ export default function ConnectSupabaseSteps() {
           <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
             .env.example
           </span>{' '}
-          file in your Next.js app to{' '}
+          file in your Remix app to{' '}
           <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
             .env.local
           </span>{' '}
@@ -41,9 +41,9 @@ export default function ConnectSupabaseSteps() {
         </p>
       </TutorialStep>
 
-      <TutorialStep title="Restart your Next.js development server">
+      <TutorialStep title="Restart your Remix development server">
         <p>
-          You may need to quit your Next.js development server and run{' '}
+          You may need to quit your Remix development server and run{' '}
           <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
             npm run dev
           </span>{' '}
@@ -52,7 +52,7 @@ export default function ConnectSupabaseSteps() {
       </TutorialStep>
 
       <TutorialStep title="Refresh the page">
-        <p>You may need to refresh the page for Next.js to load the new environment variables.</p>
+        <p>You may need to refresh the page for Remix to load the new environment variables.</p>
       </TutorialStep>
     </ol>
   )
