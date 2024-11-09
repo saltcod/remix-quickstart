@@ -14,19 +14,21 @@ import Header from '~/components/Header'
 import { cn } from './lib/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { supabase } = createClient(request)
-
   const hasEnvVars = !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY)
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
   const { getTheme } = await themeSessionResolver(request)
+
+  let user = undefined
+  if (hasEnvVars) {
+    const { supabase } = createClient(request)
+    const {
+      data: { user: supabaseUser },
+    } = await supabase.auth.getUser()
+    user = supabaseUser
+  }
 
   return json({
     theme: getTheme(),
-    user: user ?? undefined,
+    user,
     hasEnvVars,
   })
 }
