@@ -1,6 +1,6 @@
 import { json, LoaderFunctionArgs, ActionFunctionArgs } from '@remix-run/node'
 import { useLoaderData, useFetcher } from '@remix-run/react'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 import { useRef, useEffect } from 'react'
 
 export async function loader({ request }: LoaderFunctionArgs) {

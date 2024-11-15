@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 
 export const loader = async ({ request }: ActionFunctionArgs) => {
   const url = new URL(request.url)

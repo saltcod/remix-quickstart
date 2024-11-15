@@ -2,7 +2,7 @@ import { Form, Link, NavLink, useLoaderData } from '@remix-run/react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { loader } from '~/root'
-import { cn } from '~/lib/utils'
+import { cn } from '~/utils/utils'
 
 export default function HeaderNav() {
   const data = useLoaderData<typeof loader>()

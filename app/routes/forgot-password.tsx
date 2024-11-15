@@ -1,7 +1,7 @@
 import { json, redirect } from '@remix-run/node'
 import { Form, useActionData } from '@remix-run/react'
 import type { ActionFunctionArgs } from '@remix-run/node'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
 

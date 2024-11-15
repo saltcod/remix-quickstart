@@ -2,7 +2,7 @@ import { ThemeProvider, useTheme, PreventFlashOnWrongTheme } from 'remix-themes'
 
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 import Footer from './components/Footer'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 import { json, LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 import stylesheet from '~/tailwind.css?url'
 
@@ -11,7 +11,7 @@ import { themeSessionResolver } from './utils/session.server'
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
 import Header from '~/components/Header'
-import { cn } from './lib/utils'
+import { cn } from '~/utils/utils'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const hasEnvVars = !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY)

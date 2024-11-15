@@ -1,7 +1,7 @@
 import { json, redirect } from '@remix-run/node'
 import { Form, Link, useActionData, useNavigation } from '@remix-run/react'
 import type { ActionFunctionArgs } from '@remix-run/node'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
@@ -54,8 +54,6 @@ const SignIn = () => {
           {actionData?.error && <FormMessage message={actionData.error} />}
         </div>
       </Form>
-
-      {actionData?.error && <p className="text-red-500">{actionData.error}</p>}
     </div>
   )
 }

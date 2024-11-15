@@ -1,5 +1,4 @@
-import NextLogo from './next-logo'
-import SupabaseLogo from './supabase-logo'
+import SupabaseLogo from './SupabaseLogo'
 
 export default function Hero() {
   return (

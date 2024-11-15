@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 
 export async function action({ request }: ActionFunctionArgs) {
   const { supabase, headers } = createClient(request)

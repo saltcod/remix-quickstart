@@ -3,7 +3,7 @@ import { json, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { InfoIcon } from 'lucide-react'
 import FetchDataSteps from '~/components/tutorial/FetchDataSteps'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { supabase } = createClient(request)

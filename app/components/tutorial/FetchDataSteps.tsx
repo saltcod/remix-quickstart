@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { TutorialStep } from './TutorialStep'
-import { CodeBlock } from './code-block'
+import { CodeBlock } from './CodeBlock'
 
 const create = `create table notes (
   id bigserial primary key,
@@ -17,7 +17,7 @@ values
 const server = `
 import { json, LoaderFunctionArgs, ActionFunctionArgs } from '@remix-run/node'
 import { useLoaderData, useFetcher } from '@remix-run/react'
-import { createClient } from '~/utils/supabase/.server/server'
+import { createClient } from '~/utils/supabase.server'
 import { useRef, useEffect } from 'react'
 
 export async function loader({ request }: LoaderFunctionArgs) {
