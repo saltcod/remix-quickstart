@@ -1,40 +1,69 @@
-# Welcome to Remix!
+![App screenshot](public/screenshot.jpg)
 
-- 📖 [Remix docs](https://remix.run/docs)
+  <h1 align="center">Remix and Supabase Starter Kit</h1>
 
-## Development
+<p align="center">
+ The fastest way to build apps with Remix and Supabase
+</p>
 
-Run the dev server:
+<p align="center">
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
+  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
+  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
+</p>
+<br/>
 
-```shellscript
-npm run dev
-```
+## Features
 
-## Deployment
+- Works across the entire [Remix](https://remix.run) stack
+  - Loaders
+  - Actions
+  - Auth
+  - Client
+  - Server
+  - It just works!
+- supabase-ssr. A package to configure Supabase Auth to use cookies
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Components with [shadcn/ui](https://ui.shadcn.com/)
 
-First, build your app for production:
+## Clone and run locally
 
-```sh
-npm run build
-```
+1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
 
-Then run the app in production mode:
+2. Create a Remix app using the Supabase Starter template npx command
 
-```sh
-npm start
-```
+   ```bash
+   npx create-remix@latest --template https://github.com/saltcod/remix-quickstart
+   ```
 
-Now you'll need to pick a host to deploy it to.
+3. Use `cd` to change into the app's directory
 
-### DIY
+   ```bash
+   cd name-of-new-app
+   ```
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+4. Rename `.env.example` to `.env.local` and update the following:
 
-Make sure to deploy the output of `npm run build`
+   ```
+   SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+   SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+   ```
 
-- `build/server`
-- `build/client`
+   Both `SUPABASE_URL` and `SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
 
-## Styling
+5. You can now run the Remix local development server:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+   ```bash
+   npm run dev
+   ```
+
+   The starter kit should now be running on [localhost:5173](http://localhost:5173/).
+
+6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+
+> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+
+## Feedback and issues
+
+Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
